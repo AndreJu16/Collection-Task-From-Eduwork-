@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+
+<body>
+    <form action="" method="post">
+        <table class="table table-striped table-bordered" width='100%' border=1>
+            <tr>
+                <th>No</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>email</th>
+                <th>phone</th>
+                <th>address</th>
+                <th>activity</th>
+            </tr>
+            <?php
+    include 'conn.php';
+    $query = mysqli_query($conn, "SELECT id, first_name, last_name, email, phone, address, created_at FROM `customer`");
+    $no=1;
+    if(mysqli_num_rows($query)>0){
+        while($data = mysqli_fetch_array($query)) {
+    ?>
+            <tr>
+                <td>
+                    <?= $data['id']?>
+                </td>
+                <td>
+                    <?= $data['first_name']?>
+                </td>
+                <td>
+                    <?= $data['last_name']?>
+                </td>
+                <td>
+                    <?= $data['email']?>
+                </td>
+                <td>
+                    <?= $data['phone']?>
+                </td>
+                <td>
+                    <?= $data['address']?>
+                </td>
+                <td>
+                    <a class='btn btn-success' href='edit.php?id=<?php echo $data["id"];?>'>Edit</a>
+                    <a class='btn btn-danger' href='proses_hapus.php?id=<?php echo $data["id"]?>'>Delete</a>
+                </td>
+            </tr>
+            <?php $no++; };?>
+            <?php } ?>
+        </table>
+    </form>
+    <a href="tambah.php">Tambah Buku</a><br /><br />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+<!-- 1. Pemberitahuan awalan dalam membuat aplikasi ini adalah sebagai berikut : pertama membuat 
+main.php sebagai GUI yang menampilkan table database. kemudian setelah membuat struktur dari HTML nya yang dimana
+sebagai penampil database selanjutnya jika ingin melihat isi dari database menggunakan perulangan agar 
+dapat melihat data yang ada kemudian setelah main.php berhasil di buat lanjut ke pembuatan form tambah.php 
+2. jika ingin ke fitur edit maka kita pergi ke file edit.php
+3. jika ingin ke fitur hapus maka kita pergi ke file proses.php --> 
+</html>
